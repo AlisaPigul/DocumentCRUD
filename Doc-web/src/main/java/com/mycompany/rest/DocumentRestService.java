@@ -1,6 +1,6 @@
 package com.mycompany.rest;
 
-import com.mycompany.impl.DocumentImpl;
+import com.mycompany.service.DocumentService;
 import com.mycompany.vo.DocumentVO;
 
 import javax.inject.Inject;
@@ -11,11 +11,11 @@ import javax.ws.rs.core.Response;
 /**
  * Rest document service
  */
-@Path("/json")
+@Path("/docs")
 public class DocumentRestService {
 
     @Inject
-    DocumentImpl docProcessor;
+    DocumentService docProcessor;
 
     @POST
     @Path("/create")

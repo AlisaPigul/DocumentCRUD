@@ -19,7 +19,7 @@ import java.util.List;
 public class DocumentClientService {
 
     //Default uri
-    private static final String BASE_URI = "http://127.0.0.1:8082/doc-web/rest/json";
+    private static final String BASE_URI = "http://127.0.0.1:8082/doc-web/api/docs";
 
     /**
      * Test Creation of document
@@ -44,7 +44,7 @@ public class DocumentClientService {
 
     /**
      * Test Update of document
-     * @id - id of updated document
+     * @param id - id of updated document
      * @return document service object
      */
     public DocumentVO testUpdate(Integer id) {
@@ -69,7 +69,7 @@ public class DocumentClientService {
 
     /**
      * Test Deletion of document
-     * @id - id of deleted document
+     * @param id - id of deleted document
      */
     public void testDelete(Integer id) {
 

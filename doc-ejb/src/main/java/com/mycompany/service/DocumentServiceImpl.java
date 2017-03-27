@@ -1,4 +1,4 @@
-package com.mycompany.impl;
+package com.mycompany.service;
 
 import com.mycompany.converter.DocumentConverter;
 import com.mycompany.dao.DocumentDao;
@@ -17,26 +17,19 @@ import java.util.List;
  * Bean for document processing
  */
 @Stateless
-public class DocumentImpl {
+public class DocumentServiceImpl implements DocumentService{
 
     @EJB
     private DocumentDao dao;
 
-    /**
-     * Create new document
-     * @param plannedDocument - new document
-     * @return created document with auto generated id
-     */
+   @Override
     public DocumentVO createDocument(DocumentVO plannedDocument) {
         DocumentEntity document = DocumentConverter.fromVOToEntity(plannedDocument);
         dao.persistInNewTransaction(document);
         return DocumentConverter.fromEntityToVO(document);
     }
 
-    /**
-     * Get all documents from database
-     * @return all documents from database
-     */
+    @Override
     public DocumentsVO getAllDocuments() {
         List<DocumentEntity> entities = dao.list();
         List<DocumentVO> list = new ArrayList<>();
@@ -48,21 +41,14 @@ public class DocumentImpl {
         return result;
     }
 
-    /**
-     * Delete document by id
-     * @param id - id of document that should be deleted
-     */
+    @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void deleteDocumentById(Integer id) {
         DocumentEntity entity = dao.find(id);
         dao.remove(entity);
     }
 
-    /**
-     * Update document
-     * @param plannedDocument - document that should be updated
-     * @return - updated document
-     */
+    @Override
     @TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
     public DocumentVO updateDocument(DocumentVO plannedDocument) {
         DocumentEntity plannedEntity = DocumentConverter.fromVOToEntity(plannedDocument);
@@ -73,11 +59,7 @@ public class DocumentImpl {
         return DocumentConverter.fromEntityToVO(dao.getEntityManager().merge(plannedEntity));
     }
 
-    /**
-     * Get document by id
-     * @param id - id of document for search
-     * @return document with given id
-     */
+    @Override
     public DocumentVO getDocumentById(Integer id) {
         return DocumentConverter.fromEntityToVO(dao.find(id));
     }
